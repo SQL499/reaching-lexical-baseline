@@ -1,0 +1,24 @@
+{
+  "experimento": "E1_bm25",
+  "metodo": "BM25 (k1=1.5, b=0.75, epsilon=0.25; índice sobre corpus completo)",
+  "n_perfiles": 32,
+  "agregados": {
+    "P@1": 0.90625,
+    "P@3": 0.45833333333333326,
+    "NDCG@3": 0.9244178692717777,
+    "NDCG@5": 0.952714135782496,
+    "MRR": 0.9479166666666667
+  },
+  "anclaje_aleatorio_5.3": {
+    "P@1": 0.25,
+    "P@3": 0.25,
+    "NDCG@3": 0.393,
+    "NDCG@5": 0.544,
+    "MRR": 0.489
+  },
+  "empates": {
+    "perfiles_con_empates": 27,
+    "total_grupos_empate": 27,
+    "total_items_empatados": 89
+  }
+}

@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:17
+    container_name: emparejamiento-db
+    environment:
+      POSTGRES_DB: emparejamiento_semantico
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d emparejamiento_semantico"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    image: sql499/emparejamiento-api:latest
+    container_name: emparejamiento-api
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: emparejamiento_semantico
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      MODELO_ROOT: /modelo
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: sql499/emparejamiento-frontend:latest
+    container_name: emparejamiento-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

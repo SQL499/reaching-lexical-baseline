@@ -1,0 +1,42 @@
+{
+  "mejor_config": "B2",
+  "ndcg3_cv_mejor": 0.8704901927044564,
+  "mrr_cv_mejor": 0.9032022084195998,
+  "ndcg3_cv_zeroshot": 0.7462538546930402,
+  "mejoras_por_pliegue": 5,
+  "condicion_a_media_estrictamente_mayor": true,
+  "condicion_b_mejora_en_3_de_5": true,
+  "decision": "GO",
+  "ranking_configs": [
+    {
+      "config": "B2",
+      "ndcg3_medio": 0.8704901927044564,
+      "mrr_medio": 0.9032022084195998
+    },
+    {
+      "config": "B1",
+      "ndcg3_medio": 0.8633642739935816,
+      "mrr_medio": 0.8801432022084196
+    },
+    {
+      "config": "B3",
+      "ndcg3_medio": 0.8562592943463663,
+      "mrr_medio": 0.8900767770876467
+    },
+    {
+      "config": "A3",
+      "ndcg3_medio": 0.839778304200804,
+      "mrr_medio": 0.8816149068322983
+    },
+    {
+      "config": "A2",
+      "ndcg3_medio": 0.8364506461467262,
+      "mrr_medio": 0.8857211870255348
+    },
+    {
+      "config": "A1",
+      "ndcg3_medio": 0.8130514657713095,
+      "mrr_medio": 0.8679876926616057
+    }
+  ]
+}

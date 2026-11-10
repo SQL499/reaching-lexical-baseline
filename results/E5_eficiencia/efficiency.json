@@ -1,0 +1,84 @@
+{
+  "experimento": "E5_eficiencia",
+  "modelo_final": "models/finetuned_final",
+  "esquema": "5 calentamiento + 50 repeticiones (§10)",
+  "precalculo_corpus": {
+    "n_ofertas": 53233,
+    "batch_size": 256,
+    "n_lotes": 208,
+    "tiempo_total_s": 121.18,
+    "por_lote": {
+      "n": 208,
+      "mediana_ms": 583.7836499995319,
+      "p95_ms": 646.9785300010698,
+      "min_ms": 388.32550001097843,
+      "max_ms": 932.0492999977432
+    },
+    "dim": 384
+  },
+  "gpu": {
+    "codificacion_1_perfil": {
+      "n": 50,
+      "mediana_ms": 18.235200011986308,
+      "p95_ms": 19.184795001638122,
+      "min_ms": 17.472900013672188,
+      "max_ms": 27.149600005941465
+    },
+    "similitud_top10": {
+      "n": 50,
+      "mediana_ms": 0.4656500095734373,
+      "p95_ms": 0.5346549980458802,
+      "min_ms": 0.45429999590851367,
+      "max_ms": 0.6802999996580184
+    },
+    "extremo_a_extremo": {
+      "n": 50,
+      "mediana_ms": 18.659749999642372,
+      "p95_ms": 20.312839998223353,
+      "min_ms": 17.701900011161342,
+      "max_ms": 45.078700000885874
+    }
+  },
+  "cpu": {
+    "codificacion_1_perfil": {
+      "n": 50,
+      "mediana_ms": 18.02874999702908,
+      "p95_ms": 21.71068499010289,
+      "min_ms": 16.370700002880767,
+      "max_ms": 23.351099982392043
+    },
+    "similitud_top10": {
+      "n": 50,
+      "mediana_ms": 2.2885500075062737,
+      "p95_ms": 2.6363850192865352,
+      "min_ms": 1.9717999966815114,
+      "max_ms": 2.801000024192035
+    },
+    "extremo_a_extremo": {
+      "n": 50,
+      "mediana_ms": 72.22780000302009,
+      "p95_ms": 86.16223000135504,
+      "min_ms": 70.97020000219345,
+      "max_ms": 95.98270000424236
+    }
+  },
+  "referencia_bm25_corpus_completo": {
+    "n": 50,
+    "mediana_ms": 343.07309999712743,
+    "p95_ms": 365.43144999304786,
+    "min_ms": 192.25250001181848,
+    "max_ms": 369.6730999799911
+  },
+  "hardware": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 151 Stepping 2, GenuineIntel",
+    "nucleos_fisicos": 12,
+    "nucleos_logicos": 20,
+    "ram_gb": 63.8,
+    "gpu_nvidia_smi": "NVIDIA GeForce RTX 4060, 591.86, 8188 MiB",
+    "torch": "2.11.0+cu128",
+    "torch_cuda": "12.8",
+    "cudnn": 91900,
+    "python": "3.12.1"
+  }
+}

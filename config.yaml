@@ -1,0 +1,90 @@
+# Configuración canónica de la fase experimental (fuente: PROTOCOLO_EXPERIMENTAL.md v1.2)
+# Este archivo NO introduce decisiones nuevas: transcribe el protocolo. Toda interpretación
+# de ambigüedad está registrada en DECISIONES.md.
+
+seed: 42
+
+paths:
+  data_raw: data/raw
+  train_pairs: data/raw/ETIQUETADO_FINAL_TRAIN_v2.csv
+  val_pairs: data/raw/ETIQUETADO_FINAL_VALIDATION_v2.csv
+  ofertas: data/raw/ofertas_consolidadas.csv
+  perfiles: data/raw/perfiles_consolidados.csv
+  just_train: data/raw/JUSTIFICACIONES_FINAL_TRAIN_v2.csv
+  just_val: data/raw/JUSTIFICACIONES_FINAL_VALIDATION_v2.csv
+  stopwords: src/resources/stopwords_es.txt
+  models_dir: models
+  base_model_dir: models/paraphrase-multilingual-MiniLM-L12-v2
+  finetuned_final_dir: models/finetuned_final
+  results: results
+
+# §2.1 — huellas SHA-256 (compuerta bloqueante en cada script)
+sha256:
+  ETIQUETADO_FINAL_TRAIN_v2.csv: 476653352b2227f138fb42c01aa040b1da5e9607e12dd6b4a3107b2ab036fb9d
+  ETIQUETADO_FINAL_VALIDATION_v2.csv: a0f890eafda0e293c8539f09c02375b2346898f05bf967a25e54c8d3e2a57a2c
+  ofertas_consolidadas.csv: 22e495ffc0562a36f9b27dae0bb3ab81365680c9ef1af3eead5bb8352b333e37
+  perfiles_consolidados.csv: c95322ca4416389dddc2e59c020f807cf0ea35d869ff28856d5de0b57e5364ee
+  JUSTIFICACIONES_FINAL_TRAIN_v2.csv: e96c84c755624ec673e70d5708ff3204e84a9af06800cdcca8054dc3dce6b6f8
+  JUSTIFICACIONES_FINAL_VALIDATION_v2.csv: e55871d062526fa8ef037c5406ecea5211c3be39246fd982dfe02c1ae8cfe1b2
+
+encoding: utf-8-sig
+
+# §5 — métricas congeladas
+metrics:
+  precision_k: [1, 3]
+  ndcg_k: [3, 5]
+  test_tolerance: 0.0005
+
+# §5.3 — anclajes de azar (constantes congeladas, simuladas con semilla 42 / 20 000 permutaciones)
+random_anchors:
+  "P@1": 0.250
+  "P@3": 0.250
+  "NDCG@3": 0.393
+  "NDCG@5": 0.544
+  "MRR": 0.489
+
+# §3 — estructura de evaluación (perfiles utilizables por nº de positivos)
+eval_structure:
+  n_candidates: 6
+  positives_distribution: {1: 20, 2: 8, 3: 4}
+
+# §6 — baseline BM25 (congelado, sin ajuste)
+bm25:
+  k1: 1.5
+  b: 0.75
+  epsilon: 0.25
+
+# §7 / §4.2 — modelo semántico
+semantic:
+  model_name: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  max_seq_length: 256
+  normalize_embeddings: true
+  eval_encode_batch_size: 64     # fijo para reproducibilidad bit-a-bit de la evaluación
+  corpus_encode_batch_size: 256  # precálculo E5 (documentado; no afecta calidad)
+
+# §9 — fine-tuning condicional
+finetune:
+  n_folds: 5
+  learning_rate: 2.0e-5
+  warmup_ratio: 0.10
+  grid:
+    A1: {loss: mnrl, epochs: 1, batch_size: 32}
+    A2: {loss: mnrl, epochs: 2, batch_size: 32}
+    A3: {loss: mnrl, epochs: 3, batch_size: 32}
+    B1: {loss: cosine, epochs: 1, batch_size: 16}
+    B2: {loss: cosine, epochs: 2, batch_size: 16}
+    B3: {loss: cosine, epochs: 3, batch_size: 16}
+
+# §9.4 — análisis estadístico
+stats:
+  bootstrap_n: 10000
+  permutation_n: 10000
+  ci_percentiles: [2.5, 97.5]
+  permutation_metrics: ["NDCG@3", "MRR", "P@1"]
+  alpha: 0.05
+
+# §10 — eficiencia
+efficiency:
+  warmup: 5
+  reps: 50
+  top_k: 10

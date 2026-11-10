@@ -1,0 +1,14 @@
+# Entorno virtual
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Binarios de modelos (la revisión HF queda registrada en models/MODEL_INFO.txt y results/env.txt)
+models/*
+!models/MODEL_INFO.txt
+
+# Temporales de entrenamiento CV (checkpoints descartados tras evaluar)
+tmp_finetune/
