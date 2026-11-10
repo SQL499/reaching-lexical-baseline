@@ -155,7 +155,7 @@ def main():
         # C1 + compuerta §5.4: selfcheck en proceso y pytest completo (bloqueante)
         harness_selfcheck()
         rec.log("[C1/§5.4] selfcheck del harness en proceso: OK (casos A/B/C + macro)")
-        py = ROOT / ".venv" / "Scripts" / "python.exe"
+        py = sys.executable
         r = subprocess.run([str(py), "-m", "pytest", "-v", "tests/"], cwd=ROOT,
                            capture_output=True, text=True)
         (rec.dir / "pytest_report.txt").write_text(r.stdout + "\n" + r.stderr, encoding="utf-8")
